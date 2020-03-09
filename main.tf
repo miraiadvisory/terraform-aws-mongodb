@@ -4,6 +4,7 @@ resource "aws_instance" "primary" {
   key_name                = var.key_name
   subnet_id               = var.subnet_id_1
   private_ip              = var.private_ip_1
+  iam_instance_profile    = var.instance_profile
   vpc_security_group_ids  = ["${aws_security_group.mongodb.id}"]
   ebs_block_device {
     device_name           = var.ebs_device_name
@@ -23,6 +24,7 @@ resource "aws_instance" "secondary" {
   key_name                = var.key_name
   subnet_id               = var.subnet_id_2
   private_ip              = var.private_ip_2
+  iam_instance_profile    = var.instance_profile
   vpc_security_group_ids  = ["${aws_security_group.mongodb.id}"]
   ebs_block_device {
     device_name           = var.ebs_device_name

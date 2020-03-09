@@ -64,6 +64,12 @@ variable "private_ip_3" {
   type        = string
 }
 
+variable "instance_profile" {
+  description = "The IAM Instance Profile to associate the instance with. Specified as the name of the Instance Profile"
+  default     = ""
+  type        = string
+}
+
 variable "vpc_security_group_ids" {
   description = "The associated security groups in non-default VPC"
   default     = [""]
