@@ -53,38 +53,38 @@ resource "aws_instance" "arbiter" {
 
 ### Route 53 ###
 
-data "aws_route53_zone" "pro" {
+data "aws_route53_zone" "env" {
   name         = var.dns_name
   private_zone = true
 }
 
 resource "aws_route53_record" "mongoprimary" {
-  zone_id = data.aws_route53_zone.pro.zone_id
-  name    = "mongodb1.${data.aws_route53_zone.pro.name}"
+  zone_id = data.aws_route53_zone.env.zone_id
+  name    = "mongodb1.${data.aws_route53_zone.env.name}"
   type    = "A"
   ttl     = "300"
   records = [var.private_ip_1]
 }
 
 resource "aws_route53_record" "mongosecondary" {
-  zone_id = data.aws_route53_zone.pro.zone_id
-  name    = "mongodb2.${data.aws_route53_zone.pro.name}"
+  zone_id = data.aws_route53_zone.env.zone_id
+  name    = "mongodb2.${data.aws_route53_zone.env.name}"
   type    = "A"
   ttl     = "300"
   records = [var.private_ip_2]
 }
 
 resource "aws_route53_record" "mongoarbiter" {
-  zone_id = data.aws_route53_zone.pro.zone_id
-  name    = "mongodb3.${data.aws_route53_zone.pro.name}"
+  zone_id = data.aws_route53_zone.env.zone_id
+  name    = "mongodb3.${data.aws_route53_zone.env.name}"
   type    = "A"
   ttl     = "300"
   records = [var.private_ip_3]
 }
 
 resource "aws_route53_record" "servicelocator" {
-  zone_id = data.aws_route53_zone.pro.zone_id
-  name    = "_mongodb._tcp.rs.${data.aws_route53_zone.pro.name}"
+  zone_id = data.aws_route53_zone.env.zone_id
+  name    = "_mongodb._tcp.rs.${data.aws_route53_zone.env.name}"
   type    = "SRV"
   ttl     = "300"
   records = [
@@ -95,11 +95,11 @@ resource "aws_route53_record" "servicelocator" {
 }
 
 resource "aws_route53_record" "replicaset" {
-  zone_id = data.aws_route53_zone.pro.zone_id
-  name    = "rs.${data.aws_route53_zone.pro.name}"
+  zone_id = data.aws_route53_zone.env.zone_id
+  name    = "rs.${data.aws_route53_zone.env.name}"
   type    = "TXT"
   ttl     = "300"
-  records = ["authSource=eskariam&replicaSet=eskariam"]
+  records = var.replicaset_record
 }
 
 ### Security Group ###

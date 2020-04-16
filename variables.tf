@@ -118,6 +118,12 @@ variable "ingress_mongodb_sg" {
   type        = list(string)
 }
 
+variable "replicaset_record" {
+  description = "replicaSet and authSource connection string. You may only specify one TXT record per mongod instance."
+  default     = [""]
+  type        = list(string)
+}
+
 variable "environment" {
   description = ""
   default     = ""
