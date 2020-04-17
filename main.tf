@@ -13,6 +13,8 @@ resource "aws_instance" "primary" {
     delete_on_termination = var.deletes_on_termination
   }
   tags = {
+    Name        = var.instance_name_1
+    Schedule    = var.instance_schedule
     Project     = var.projectname
     Environment = var.environment
   }
@@ -33,6 +35,8 @@ resource "aws_instance" "secondary" {
     delete_on_termination = var.deletes_on_termination
   }
   tags = {
+    Name        = var.instance_name_2
+    Schedule    = var.instance_schedule
     Project     = var.projectname
     Environment = var.environment
   }
@@ -46,6 +50,8 @@ resource "aws_instance" "arbiter" {
   private_ip              = var.private_ip_3
   vpc_security_group_ids  = ["${aws_security_group.mongodb.id}"]
   tags = {
+    Name        = var.instance_name_3
+    Schedule    = var.instance_schedule
     Project     = var.projectname
     Environment = var.environment
   }
@@ -60,7 +66,7 @@ data "aws_route53_zone" "env" {
 
 resource "aws_route53_record" "mongoprimary" {
   zone_id = data.aws_route53_zone.env.zone_id
-  name    = "mongodb1.${data.aws_route53_zone.env.name}"
+  name    = "${var.instance_name_1}.${data.aws_route53_zone.env.name}"
   type    = "A"
   ttl     = "300"
   records = [var.private_ip_1]
@@ -68,7 +74,7 @@ resource "aws_route53_record" "mongoprimary" {
 
 resource "aws_route53_record" "mongosecondary" {
   zone_id = data.aws_route53_zone.env.zone_id
-  name    = "mongodb2.${data.aws_route53_zone.env.name}"
+  name    = "${var.instance_name_2}.${data.aws_route53_zone.env.name}"
   type    = "A"
   ttl     = "300"
   records = [var.private_ip_2]
@@ -76,7 +82,7 @@ resource "aws_route53_record" "mongosecondary" {
 
 resource "aws_route53_record" "mongoarbiter" {
   zone_id = data.aws_route53_zone.env.zone_id
-  name    = "mongodb3.${data.aws_route53_zone.env.name}"
+  name    = "${var.instance_name_3}.${data.aws_route53_zone.env.name}"
   type    = "A"
   ttl     = "300"
   records = [var.private_ip_3]

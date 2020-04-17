@@ -22,6 +22,24 @@ variable "key_name" {
   type        = string
 }
 
+variable "instance_name_1" {
+  description = "Required. Name of the first instance, used in tags and DNS"
+  default    = ""
+  type       = string
+}
+
+variable "instance_name_2" {
+  description = "Requried. Name of the second instance, used in tags and DNS"
+  default    = ""
+  type       = string
+}
+
+variable "instance_name_3" {
+  description = "Required. Name of the arbiter instance, used in tags and DNS"
+  default    = ""
+  type       = string
+}
+
 variable "subnet_id_1" {
   description = "The VPC Subnet ID to launch the primary instance in."
   default     = ""
@@ -132,6 +150,12 @@ variable "environment" {
 
 variable "projectname" {
   description = ""
+  default     = ""
+  type        = string
+}
+
+variable "instance_schedule" {
+  description = "Schedule tag to control uptime"
   default     = ""
   type        = string
 }
