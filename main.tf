@@ -134,7 +134,14 @@ resource "aws_security_group" "mongodb" {
     to_port   = 27017
     protocol  = "tcp"
     security_groups = var.ingress_mongodb_sg
-  }  
+  }
+
+  ingress {
+    from_port = 9216
+    to_port   = 9216
+    protocol  = "tcp"
+    security_groups = var.ingress_mongoexporter_sg
+  }
 
   egress {
     from_port   = 0
