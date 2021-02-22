@@ -5,7 +5,7 @@ resource "aws_instance" "primary" {
   subnet_id               = var.subnet_id_1
   private_ip              = var.private_ip_1
   iam_instance_profile    = var.instance_profile
-  vpc_security_group_ids  = ["${aws_security_group.mongodb.id}"]
+  vpc_security_group_ids  = [aws_security_group.mongodb.id]
   ebs_block_device {
     device_name           = var.ebs_device_name
     volume_type           = var.ebs_volume_type
@@ -27,7 +27,7 @@ resource "aws_instance" "secondary" {
   subnet_id               = var.subnet_id_2
   private_ip              = var.private_ip_2
   iam_instance_profile    = var.instance_profile
-  vpc_security_group_ids  = ["${aws_security_group.mongodb.id}"]
+  vpc_security_group_ids  = [aws_security_group.mongodb.id]
   ebs_block_device {
     device_name           = var.ebs_device_name
     volume_type           = var.ebs_volume_type
@@ -48,7 +48,7 @@ resource "aws_instance" "arbiter" {
   key_name                = var.key_name
   subnet_id               = var.subnet_id_3
   private_ip              = var.private_ip_3
-  vpc_security_group_ids  = ["${aws_security_group.mongodb.id}"]
+  vpc_security_group_ids  = [aws_security_group.mongodb.id]
   tags = {
     Name        = var.instance_name_3
     Schedule    = var.instance_schedule
