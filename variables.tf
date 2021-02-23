@@ -23,20 +23,17 @@ variable "key_name" {
 }
 
 variable "instance_name_1" {
-  description = "Required. Name of the first instance, used in tags and DNS"
-  default    = ""
+  description = "Name of the first instance, used in tags and DNS"
   type       = string
 }
 
 variable "instance_name_2" {
-  description = "Requried. Name of the second instance, used in tags and DNS"
-  default    = ""
+  description = "Name of the second instance, used in tags and DNS"
   type       = string
 }
 
 variable "instance_name_3" {
-  description = "Required. Name of the arbiter instance, used in tags and DNS"
-  default    = ""
+  description = "Name of the arbiter instance, used in tags and DNS"
   type       = string
 }
 
