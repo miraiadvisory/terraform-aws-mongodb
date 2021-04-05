@@ -6,11 +6,19 @@ resource "aws_instance" "primary" {
   private_ip              = var.private_ip_1
   iam_instance_profile    = var.instance_profile
   vpc_security_group_ids  = [aws_security_group.mongodb.id]
+  root_block_device = [
+    {
+      volume_type = "gp2"
+      volume_size = 8
+      encrypted   = true
+    },
+  ]
   ebs_block_device {
     device_name           = var.ebs_device_name
     volume_type           = var.ebs_volume_type
     volume_size           = var.ebs_volume_size
     delete_on_termination = var.deletes_on_termination
+    encrypted             = true
   }
   tags = {
     Name        = var.instance_name_1
@@ -28,11 +36,19 @@ resource "aws_instance" "secondary" {
   private_ip              = var.private_ip_2
   iam_instance_profile    = var.instance_profile
   vpc_security_group_ids  = [aws_security_group.mongodb.id]
+  root_block_device = [
+    {
+      volume_type = "gp2"
+      volume_size = 8
+      encrypted   = true
+    },
+  ]
   ebs_block_device {
     device_name           = var.ebs_device_name
     volume_type           = var.ebs_volume_type
     volume_size           = var.ebs_volume_size
     delete_on_termination = var.deletes_on_termination
+    encrypted             = true
   }
   tags = {
     Name        = var.instance_name_2
