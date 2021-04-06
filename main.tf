@@ -6,13 +6,11 @@ resource "aws_instance" "primary" {
   private_ip              = var.private_ip_1
   iam_instance_profile    = var.instance_profile
   vpc_security_group_ids  = [aws_security_group.mongodb.id]
-  root_block_device = [
-    {
+  root_block_device {
       volume_type = "gp2"
       volume_size = 8
       encrypted   = true
-    },
-  ]
+    }
   ebs_block_device {
     device_name           = var.ebs_device_name
     volume_type           = var.ebs_volume_type
@@ -36,13 +34,11 @@ resource "aws_instance" "secondary" {
   private_ip              = var.private_ip_2
   iam_instance_profile    = var.instance_profile
   vpc_security_group_ids  = [aws_security_group.mongodb.id]
-  root_block_device = [
-    {
+  root_block_device {
       volume_type = "gp2"
       volume_size = 8
       encrypted   = true
-    },
-  ]
+    }
   ebs_block_device {
     device_name           = var.ebs_device_name
     volume_type           = var.ebs_volume_type
@@ -65,6 +61,11 @@ resource "aws_instance" "arbiter" {
   subnet_id               = var.subnet_id_3
   private_ip              = var.private_ip_3
   vpc_security_group_ids  = [aws_security_group.mongodb.id]
+  root_block_device {
+      volume_type = "gp2"
+      volume_size = 8
+      encrypted   = true
+    }
   tags = {
     Name        = var.instance_name_3
     Schedule    = var.instance_schedule
